@@ -20,11 +20,11 @@ angleB = (bMax-bMin)/rotation
 
 for i in range(int(gaps/2)):
     print(i)
-    servoT.value = rMin+angleT*i
+    ServoT.value = rMin+angleT*i
     for j in range(rotation):
-        servoB.value = bMin+angleB*j
+        ServoB.value = bMin+angleB*j
         sleep(sTime)
-    servoT.value = rMax-angleT*i
+    ServoT.value = rMax-angleT*i
     for k in range(rotation):
-        servoB.value=bMax-angleB*k
+        ServoB.value=bMax-angleB*k
         sleep(sTime)
