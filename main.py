@@ -2,6 +2,22 @@ from gpiozero import Servo
 from time import sleep
 from gpiozero.pins.pigpio import PiGPIOFactory
 import os
+from picamera2.encoders import H264Encoder
+from picamera2 import Picamera2
+import time
+
+picam2 = Picamera2()
+video_config = picam2.create_video_configuration()
+picam2.configure(video_config)
+
+os.system('cd /home/alp/CanSatImages')
+dirs = os.listdir('/home/alp/CanSatImages')
+print(dirs)
+dirName = str(int(dirs[-1].split('.')[0])+1)
+
+encoder = H264Encoder(bitrate=10000000)
+output = f"/home/alp/CanSatImages/{dirName}.h264" 
+picam2.start_recording(encoder, output)
 
 os.system('sudo pigpiod')
 factory = PiGPIOFactory()
@@ -28,3 +44,5 @@ for i in range(int(gaps/2)):
     for k in range(rotation):
         ServoB.value=bMax-angleB*k
         sleep(sTime)
+
+picam2.stop_recording()
